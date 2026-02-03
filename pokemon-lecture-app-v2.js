@@ -338,23 +338,27 @@ const app = {
         // Sauvegarder d'abord
         this.saveProgress();
         
-        // Forcer le changement d'écran de manière synchrone
+        // 1. Masquer tous les écrans pour forcer le reset du layout
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        const mapScreen = document.getElementById('map-screen');
-        mapScreen.classList.add('active');
         
-        // Scroller vers le haut de la page pour voir les arènes
-        mapScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-        
-        // Mettre à jour l'interface
-        this.updateUI();
-        
-        // Puis lancer le message vocal après un délai
+        // 2. Petit délai pour laisser le navigateur réaliser que la page est vide/haute
         setTimeout(() => {
-            this.speak(`Bienvenue ${this.player.name}! Prêt à devenir un maître de la lecture?`, false);
-        }, 500);
+            const mapScreen = document.getElementById('map-screen');
+            mapScreen.classList.add('active');
+            
+            // 3. Force le scroll en haut absolu
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            
+            // 4. Mettre à jour l'interface
+            this.updateUI();
+            
+            // 5. Message vocal
+            setTimeout(() => {
+                this.speak(`Bienvenue ${this.player.name}! Prêt à devenir un maître de la lecture?`, false);
+            }, 500);
+        }, 10);
     },
     
     showScreen(screenId) {
