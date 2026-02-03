@@ -626,10 +626,50 @@ const app = {
         const correct = availableItems[Math.floor(Math.random() * availableItems.length)];
         this.usedItems.push(correct);
         
+        // Groupes de sons trop proches à ne jamais mélanger
+        const confusingGroups = [
+            ['f', 'ph'],
+            ['j', 'g'],
+            ['k', 'c', 'q'],
+            ['s', 'c', 'ç', 'ss'],
+            ['z', 's'],
+            ['in', 'un', 'ain', 'ein', 'im'],
+            ['an', 'en', 'am', 'em'],
+            ['on', 'om'],
+            ['au', 'eau', 'o'],
+            ['ai', 'ei', 'è', 'ê'],
+            ['ou', 'u']
+        ];
+        
         let wrong;
         if (gym.type === 'sounds' || gym.type === 'complex-sounds') {
+            // Identifier les sons à exclure (ceux qui ressemblent trop à "correct")
+            const excludedSounds = [correct];
+            confusingGroups.forEach(group => {
+                if (group.includes(correct)) {
+                    excludedSounds.push(...group);
+                }
+            });
+            
             // Pour les sons, prendre les autres sons de l'arène comme mauvaises réponses
-            wrong = items.filter(s => s !== correct).sort(() => Math.random() - 0.5).slice(0, 3);
+            // en excluant ceux qui sont phonétiquement trop proches
+            wrong = items
+                .filter(s => !excludedSounds.includes(s))
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 3);
+            
+            // Si on n'a pas assez de choix (moins de 3), on complète avec d'autres sons randoms "sûrs" d'autres arènes si nécessaire
+            // mais normalement l'arène a assez de sons distincts.
+            // Si vraiment pas assez, on prend des sons de base très distincts (a, i, o, u)
+            if (wrong.length < 3) {
+                const safeBackups = ['a', 'i', 'o', 'u', 'r', 'l', 'm', 'p'].filter(s => !excludedSounds.includes(s));
+                while (wrong.length < 3) {
+                    const backup = safeBackups[Math.floor(Math.random() * safeBackups.length)];
+                    if (!wrong.includes(backup)) {
+                        wrong.push(backup);
+                    }
+                }
+            }
         } else {
             // Pour les lettres, prendre d'autres lettres de l'alphabet
             const allOptions = 'abcdefghijklmnopqrstuvwxyz'.split('');
