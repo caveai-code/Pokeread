@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Pokémon Lecture - Apprendre à lire</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Écran bienvenue */
+        #welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+        }
+
+        .pokemon-logo h1 {
+            font-size: 2.5rem;
+            color: #FFDE00;
+            text-shadow: 4px 4px 0 #FF0000, 6px 6px 0 #3B4CCA;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pokeball-animation {
+            font-size: 4rem;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .welcome-content {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .welcome-content h2 {
+            color: #3B4CCA;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .welcome-content p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+
+        #trainer-name {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.3rem;
+            border: 3px solid #3B4CCA;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: 'Comic Sans MS', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF0000 0%, #FF8C00 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-family: 'Comic Sans MS', sans-serif;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        /* Carte */
+        .game-header {
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .map-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .map-title {
+            text-align: center;
+            color: #3B4CCA;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .gyms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gym-card {
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            border: 4px solid #3B4CCA;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .gym-card.locked {
+            opacity: 0.5;
+            border-color: #ccc;
+        }
+
+        .gym-card.locked::after {
+            content: '🔒';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+        }
+
+        .gym-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .gym-card h3 {
+            color: #FF0000;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .mode-section {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .mode-section.expert {
+            border-color: #9333ea;
+            background: #faf5ff;
+        }
+
+        .mode-label {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .mode-label.expert {
+            color: #9333ea;
+        }
+
+        .gym-badge {
+            font-size: 2.5rem;
+            margin: 10px 0;
+            opacity: 0.3;
+        }
+
+        .gym-badge.earned {
+            opacity: 1;
+        }
+
+        .gym-stars {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        .gym-stars .star {
+            opacity: 0.3;
+        }
+
+        .gym-stars .star.earned {
+            opacity: 1;
+        }
+
+        .gym-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-gym {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', sans-serif;
+        }
+
+        .btn-gym-normal {
+            background: #3B4CCA;
+            color: white;
+        }
+
+        .btn-gym-expert {
+            background: #9333ea;
+            color: white;
+        }
+
+        .btn-gym:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Exercices */
+        .exercise-header {
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .exercise-progress {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 300px;
+            height: 15px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00A651 0%, #FFDE00 100%);
+            transition: width 0.5s ease;
+        }
+
+        .exercise-container {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-height: 500px;
+        }
+
+        .pikachu-helper {
+            font-size: 4rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        #instruction-text {
+            font-size: 1.8rem;
+            color: #3B4CCA;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .expert-badge {
+            font-size: 1rem;
+            color: #9333ea;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .letter-display {
+            font-size: 8rem;
+            color: #FF0000;
+            font-weight: bold;
+            text-shadow: 3px 3px 0 #FFDE00;
+            margin: 30px 0;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .option-btn {
+            background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%);
+            border: 4px solid #3B4CCA;
+            border-radius: 20px;
+            padding: 30px 20px;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .option-btn.correct {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .option-btn.incorrect {
+            background: #F44336;
+            color: white;
+            border-color: #F44336;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        #feedback {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            min-height: 60px;
+            margin-top: 20px;
+        }
+
+        #feedback.correct {
+            color: #4CAF50;
+        }
+
+        #feedback.incorrect {
+            color: #F44336;
+        }
+
+        /* Pokédex */
+        .pokedex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .pokemon-card {
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            border: 3px solid #FFDE00;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .pokemon-card.locked {
+            opacity: 0.4;
+            filter: grayscale(100%);
+        }
+
+        .pokemon-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        .pokemon-sprite {
+            width: 80px;
+            height: 80px;
+            background-image: url('sprite_pokemon.png');
+            background-size: 960px 1040px;
+            display: inline-block;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        .pokemon-name {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .reward-pokemon-sprite {
+            width: 160px;
+            height: 160px;
+            background-image: url('sprite_pokemon.png');
+            background-size: 1920px 2080px;
+            margin: 20px auto;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+            animation: rewardAppear 1s ease;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h2.normal {
+            color: #FFDE00;
+            text-shadow: 2px 2px 0 #FF0000;
+        }
+
+        .modal-content h2.expert {
+            color: #9333ea;
+            text-shadow: 2px 2px 0 #FF0000;
+        }
+
+        .stars-earned {
+            font-size: 3rem;
+            margin: 20px 0;
+        }
+
+        .reward-pokemon-sprite {
+            width: 120px;
+            height: 120px;
+            background-image: url('https://www.spriters-resource.com/media/assets/62/64885.png?updated=1755473498');
+            background-size: 4800px auto;
+            margin: 20px auto;
+            image-rendering: pixelated;
+            transform: scale(3);
+            animation: rewardAppear 1s ease;
+        }
+
+        .reward-text {
+            font-size: 1.5rem;
+            color: #9333ea;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.9);
+            color: #3B4CCA;
+            border: 2px solid #3B4CCA;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', sans-serif;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .gyms-grid {
+                grid-template-columns: 1fr;
+            }
+            .letter-display {
+                font-size: 5rem;
+            }
+            .option-btn {
+                font-size: 2rem;
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Écran bienvenue -->
+    <div id="welcome-screen" class="screen active">
+        <div class="pokemon-logo">
+            <h1>🎮 POKÉMON LECTURE 🎮</h1>
+            <div class="pokeball-animation">⚪</div>
+        </div>
+        <div class="welcome-content">
+            <h2>Bienvenue, Dresseur !</h2>
+            <p>Prêt à devenir un Maître de la Lecture ?</p>
+            <input type="text" id="trainer-name" placeholder="Ton prénom" maxlength="15">
+            <button class="btn-primary" onclick="app.startAdventure()">
+                ⚡ Commencer l'Aventure ! ⚡
+            </button>
+        </div>
+    </div>
+
+    <!-- Écran carte -->
+    <div id="map-screen" class="screen">
+        <div class="game-header">
+            <div>
+                <div>👤 <span id="player-name">Dresseur</span></div>
+                <div style="font-size: 0.9rem;">⭐ Niveau <span id="player-level">1</span></div>
+            </div>
+            <div>
+                <div>🏆 <span id="total-badges">0</span>/8</div>
+                <div>📚 <span id="total-stars">0</span> ⭐</div>
+                <div>📕 <span id="pokemon-count">0</span>/19</div>
+            </div>
+            <button onclick="app.toggleSettings()" style="background: #f0f0f0; border: 2px solid #3B4CCA; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 1.2rem;">
+                ⚙️
+            </button>
+        </div>
+
+        <!-- Panel Settings -->
+        <div id="settings-panel" style="display: none; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 20px;">
+            <h3 style="color: #3B4CCA; margin-bottom: 15px;">⚙️ Paramètres</h3>
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 1.1rem;">
+                <input type="checkbox" id="unlock-all-gyms" onchange="app.toggleUnlockAll()" style="width: 20px; height: 20px; cursor: pointer;">
+                <span>🔓 Débloquer toutes les arènes (mode test)</span>
+            </label>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">Utile pour tester ou si l'enfant veut sauter des niveaux</p>
+        </div>
+
+        <div class="map-container">
+            <h2 class="map-title">🗺️ Carte de Kanto</h2>
+            <div class="gyms-grid" id="gyms-container"></div>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="btn-primary" onclick="app.showPokedex()" style="max-width: 400px;">
+                📕 Mon Pokédex (<span id="pokemon-count-2">0</span>/19)
+            </button>
+        </div>
+    </div>
+
+    <!-- Écran introduction arène -->
+    <div id="gym-intro-screen" class="screen">
+        <div class="exercise-container" style="margin-top: 100px;">
+            <div style="text-align: center;">
+                <h2 id="intro-gym-name" style="font-size: 2.5rem; color: #FF0000; margin-bottom: 20px;">Arène</h2>
+                <div id="intro-pokemon-sprite" style="margin: 30px auto;"></div>
+                <p id="intro-message" style="font-size: 1.8rem; font-weight: bold; color: #3B4CCA; line-height: 1.5;"></p>
+                <button class="btn-primary" onclick="app.startGymExercises()" style="margin-top: 30px; max-width: 400px;">
+                    ⚡ C'est parti ! ⚡
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Écran exercices -->
+    <div id="exercise-screen" class="screen">
+        <div class="exercise-header">
+            <button class="btn-back" onclick="app.backToMap()">← Retour</button>
+            <div class="exercise-progress">
+                <div id="current-gym-name">Arène</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="exercise-progress-bar"></div>
+                </div>
+                <div><span id="current-exercise">0</span>/<span id="total-exercises">10</span></div>
+                <div style="font-size: 1.5rem; margin-top: 10px;" id="hearts">❤️❤️❤️</div>
+            </div>
+        </div>
+
+        <div class="exercise-container">
+            <div style="text-align: center;">
+                <div class="pikachu-helper" id="helper-icon">⚡</div>
+                <p id="instruction-text">Clique sur la bonne réponse !</p>
+                <button onclick="app.repeatInstruction()" style="background: #FFDE00; border: none; padding: 10px 20px; border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; margin: 10px 0; font-family: 'Comic Sans MS', sans-serif;">
+                    🔊 Réécouter
+                </button>
+                <p class="expert-badge" id="expert-badge" style="display: none;">MODE EXPERT - Écoute bien!</p>
+            </div>
+
+            <div id="exercise-content" style="text-align: center; margin: 30px 0;"></div>
+            <div id="feedback"></div>
+        </div>
+    </div>
+
+    <!-- Écran Pokédex -->
+    <div id="pokedex-screen" class="screen">
+        <div class="game-header">
+            <button class="btn-back" onclick="app.closePokedex()">← Retour</button>
+            <h2 style="flex: 1; text-align: center; color: #FF0000;">📕 Mon Pokédex</h2>
+        </div>
+        <div class="pokedex-grid" id="pokedex-grid"></div>
+    </div>
+
+    <!-- Modal victoire -->
+    <div id="victory-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="victory-title">🎉 VICTOIRE ! 🎉</h2>
+            <div style="font-size: 3rem; margin: 20px 0;">✨🎊✨</div>
+            <p id="victory-message" style="font-size: 1.5rem; font-weight: bold; color: #3B4CCA; margin-bottom: 20px;"></p>
+            <div class="stars-earned" id="stars-earned">⭐⭐⭐</div>
+            <div id="reward-content"></div>
+            <button class="btn-primary" onclick="app.closeVictoryModal()">Continuer !</button>
+        </div>
+    </div>
+
+    <script src="pokemon-lecture-app-v2.js"></script>
+</body>
+</html>
