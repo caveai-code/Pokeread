@@ -62,6 +62,20 @@ const app = {
             type: 'words', unlocked: false, stars: 0, badge: false, expertStars: 0, expertBadge: false
         },
         8: { 
+            name: 'Arène Argenta', icon: '📚',
+            words: ['chocolat', 'parapluie', 'ordinateur', 'bibliothèque', 'papillon', 'crocodile', 'hélicoptère', 'restaurant',
+                    'éléphant', 'pharmacie', 'anniversaire', 'laboratoire', 'supermarket', 'dictionnaire', 'gymnastique', 'maternelle',
+                    'automobile', 'réfrigérateur', 'merveilleux', 'extraordinaire'],
+            type: 'read-words', unlocked: false, stars: 0, badge: false, expertStars: 0, expertBadge: false
+        },
+        9: { 
+            name: 'Arène Plateau Indigo', icon: '💎',
+            sentences: ['Le chat dort.', 'Papa lit.', 'Marie joue.', 'Le chien court.', 'Maman cuisine.',
+                'Le soleil brille.', 'Les oiseaux chantent.', 'Julie danse.', 'Marc dessine.', 'Le bébé pleure.',
+                'La pluie tombe.', 'Le vent souffle.', 'Pierre mange.', 'Sophie rit.', 'Le train part.'],
+            type: 'sentence-choice', unlocked: false, stars: 0, badge: false, expertStars: 0, expertBadge: false
+        },
+        10: { 
             name: 'Ligue Pokémon', icon: '🏆',
             sentences: ['Le rat lit.', 'Maman a un sac.', 'Papa va au lit.', 'Le lapin saute.', 'Le chat dort.', 'Marie joue.', 'Luc court vite.',
                 'Papa lit le journal.', 'Maman fait un gâteau.', 'Le chien aboie fort.', 'Julie va à Paris.', 'Marc aime les pommes.',
@@ -72,26 +86,131 @@ const app = {
         }
     },
     
+    // Pokédex complet Gen 1 - 151 Pokémon organisés par arène (rareté croissante)
+    // gym: numéro d'arène où le Pokémon peut être attrapé
+    // isEvolution: true = gagnable en mode expert, false = mode normal
     pokedex: [
-        { id: 1, name: 'Bulbizarre', pokedexNum: 1, unlocked: false, gym: 1, isEvolution: false },
-        { id: 2, name: 'Herbizarre', pokedexNum: 2, unlocked: false, gym: 1, isEvolution: true },
-        { id: 3, name: 'Salamèche', pokedexNum: 4, unlocked: false, gym: 2, isEvolution: false },
-        { id: 4, name: 'Reptincel', pokedexNum: 5, unlocked: false, gym: 2, isEvolution: true },
-        { id: 5, name: 'Carapuce', pokedexNum: 7, unlocked: false, gym: 3, isEvolution: false },
-        { id: 6, name: 'Carabaffe', pokedexNum: 8, unlocked: false, gym: 3, isEvolution: true },
-        { id: 7, name: 'Pikachu', pokedexNum: 25, unlocked: false, gym: 4, isEvolution: false },
-        { id: 8, name: 'Raichu', pokedexNum: 26, unlocked: false, gym: 4, isEvolution: true },
-        { id: 9, name: 'Rondoudou', pokedexNum: 39, unlocked: false, gym: 5, isEvolution: false },
-        { id: 10, name: 'Grodoudou', pokedexNum: 40, unlocked: false, gym: 5, isEvolution: true },
-        { id: 11, name: 'Miaous', pokedexNum: 52, unlocked: false, gym: 6, isEvolution: false },
-        { id: 12, name: 'Persian', pokedexNum: 53, unlocked: false, gym: 6, isEvolution: true },
-        { id: 13, name: 'Psykokwak', pokedexNum: 54, unlocked: false, gym: 7, isEvolution: false },
-        { id: 14, name: 'Akwakwak', pokedexNum: 55, unlocked: false, gym: 7, isEvolution: true },
-        { id: 15, name: 'Évoli', pokedexNum: 133, unlocked: false, gym: 8, isEvolution: false },
-        { id: 16, name: 'Aquali', pokedexNum: 134, unlocked: false, gym: 8, isEvolution: true },
-        { id: 17, name: 'Ronflex', pokedexNum: 143, unlocked: false, gym: null, isEvolution: false },
-        { id: 18, name: 'Mewtwo', pokedexNum: 150, unlocked: false, gym: null, isEvolution: false },
-        { id: 19, name: 'Dracaufeu', pokedexNum: 6, unlocked: false, gym: null, isEvolution: false }
+        // === ARÈNE 1 - Pokémon très communs ===
+        { name: 'Rattata', pokedexNum: 19, unlocked: false, gym: 1, isEvolution: false },
+        { name: 'Rattatac', pokedexNum: 20, unlocked: false, gym: 1, isEvolution: true },
+        { name: 'Roucool', pokedexNum: 16, unlocked: false, gym: 1, isEvolution: false },
+        { name: 'Roucoups', pokedexNum: 17, unlocked: false, gym: 1, isEvolution: true },
+        { name: 'Chenipan', pokedexNum: 10, unlocked: false, gym: 1, isEvolution: false },
+        { name: 'Chrysacier', pokedexNum: 11, unlocked: false, gym: 1, isEvolution: true },
+        { name: 'Aspicot', pokedexNum: 13, unlocked: false, gym: 1, isEvolution: false },
+        { name: 'Coconfort', pokedexNum: 14, unlocked: false, gym: 1, isEvolution: true },
+        
+        // === ARÈNE 2 - Pokémon communs ===
+        { name: 'Pikachu', pokedexNum: 25, unlocked: false, gym: 2, isEvolution: false },
+        { name: 'Raichu', pokedexNum: 26, unlocked: false, gym: 2, isEvolution: true },
+        { name: 'Mélofée', pokedexNum: 35, unlocked: false, gym: 2, isEvolution: false },
+        { name: 'Mélodelfe', pokedexNum: 36, unlocked: false, gym: 2, isEvolution: true },
+        { name: 'Rondoudou', pokedexNum: 39, unlocked: false, gym: 2, isEvolution: false },
+        { name: 'Grodoudou', pokedexNum: 40, unlocked: false, gym: 2, isEvolution: true },
+        { name: 'Nosferapti', pokedexNum: 41, unlocked: false, gym: 2, isEvolution: false },
+        { name: 'Nosferalto', pokedexNum: 42, unlocked: false, gym: 2, isEvolution: true },
+        
+        // === ARÈNE 3 - Pokémon assez communs ===
+        { name: 'Bulbizarre', pokedexNum: 1, unlocked: false, gym: 3, isEvolution: false },
+        { name: 'Herbizarre', pokedexNum: 2, unlocked: false, gym: 3, isEvolution: true },
+        { name: 'Salamèche', pokedexNum: 4, unlocked: false, gym: 3, isEvolution: false },
+        { name: 'Reptincel', pokedexNum: 5, unlocked: false, gym: 3, isEvolution: true },
+        { name: 'Carapuce', pokedexNum: 7, unlocked: false, gym: 3, isEvolution: false },
+        { name: 'Carabaffe', pokedexNum: 8, unlocked: false, gym: 3, isEvolution: true },
+        { name: 'Mystherbe', pokedexNum: 43, unlocked: false, gym: 3, isEvolution: false },
+        { name: 'Ortide', pokedexNum: 44, unlocked: false, gym: 3, isEvolution: true },
+        
+        // === ARÈNE 4 - Pokémon moyens ===
+        { name: 'Abra', pokedexNum: 63, unlocked: false, gym: 4, isEvolution: false },
+        { name: 'Kadabra', pokedexNum: 64, unlocked: false, gym: 4, isEvolution: true },
+        { name: 'Machoc', pokedexNum: 66, unlocked: false, gym: 4, isEvolution: false },
+        { name: 'Machopeur', pokedexNum: 67, unlocked: false, gym: 4, isEvolution: true },
+        { name: 'Miaouss', pokedexNum: 52, unlocked: false, gym: 4, isEvolution: false },
+        { name: 'Persian', pokedexNum: 53, unlocked: false, gym: 4, isEvolution: true },
+        { name: 'Psykokwak', pokedexNum: 54, unlocked: false, gym: 4, isEvolution: false },
+        { name: 'Akwakwak', pokedexNum: 55, unlocked: false, gym: 4, isEvolution: true },
+        
+        // === ARÈNE 5 - Pokémon peu communs ===
+        { name: 'Ponyta', pokedexNum: 77, unlocked: false, gym: 5, isEvolution: false },
+        { name: 'Galopa', pokedexNum: 78, unlocked: false, gym: 5, isEvolution: true },
+        { name: 'Ramoloss', pokedexNum: 79, unlocked: false, gym: 5, isEvolution: false },
+        { name: 'Flagadoss', pokedexNum: 80, unlocked: false, gym: 5, isEvolution: true },
+        { name: 'Magnéti', pokedexNum: 81, unlocked: false, gym: 5, isEvolution: false },
+        { name: 'Magnéton', pokedexNum: 82, unlocked: false, gym: 5, isEvolution: true },
+        { name: 'Caninos', pokedexNum: 58, unlocked: false, gym: 5, isEvolution: false },
+        { name: 'Arcanin', pokedexNum: 59, unlocked: false, gym: 5, isEvolution: true },
+        
+        // === ARÈNE 6 - Pokémon rares ===
+        { name: 'Fantominus', pokedexNum: 92, unlocked: false, gym: 6, isEvolution: false },
+        { name: 'Spectrum', pokedexNum: 93, unlocked: false, gym: 6, isEvolution: true },
+        { name: 'Onix', pokedexNum: 95, unlocked: false, gym: 6, isEvolution: false },
+        { name: 'Soporifik', pokedexNum: 96, unlocked: false, gym: 6, isEvolution: false },
+        { name: 'Hypnomade', pokedexNum: 97, unlocked: false, gym: 6, isEvolution: true },
+        { name: 'Krabby', pokedexNum: 98, unlocked: false, gym: 6, isEvolution: false },
+        { name: 'Krabboss', pokedexNum: 99, unlocked: false, gym: 6, isEvolution: true },
+        { name: 'Voltorbe', pokedexNum: 100, unlocked: false, gym: 6, isEvolution: false },
+        { name: 'Électrode', pokedexNum: 101, unlocked: false, gym: 6, isEvolution: true },
+        
+        // === ARÈNE 7 - Pokémon très rares ===
+        { name: 'Rhinocorne', pokedexNum: 111, unlocked: false, gym: 7, isEvolution: false },
+        { name: 'Rhinoféros', pokedexNum: 112, unlocked: false, gym: 7, isEvolution: true },
+        { name: 'Leveinard', pokedexNum: 113, unlocked: false, gym: 7, isEvolution: false },
+        { name: 'Saquedeneu', pokedexNum: 114, unlocked: false, gym: 7, isEvolution: false },
+        { name: 'Kangourex', pokedexNum: 115, unlocked: false, gym: 7, isEvolution: false },
+        { name: 'Hypotrempe', pokedexNum: 116, unlocked: false, gym: 7, isEvolution: false },
+        { name: 'Hypocéan', pokedexNum: 117, unlocked: false, gym: 7, isEvolution: true },
+        { name: 'Poissirène', pokedexNum: 118, unlocked: false, gym: 7, isEvolution: false },
+        { name: 'Poissoroy', pokedexNum: 119, unlocked: false, gym: 7, isEvolution: true },
+        
+        // === ARÈNE 8 - Pokémon épiques ===
+        { name: 'Stari', pokedexNum: 120, unlocked: false, gym: 8, isEvolution: false },
+        { name: 'Staross', pokedexNum: 121, unlocked: false, gym: 8, isEvolution: true },
+        { name: 'M. Mime', pokedexNum: 122, unlocked: false, gym: 8, isEvolution: false },
+        { name: 'Insécateur', pokedexNum: 123, unlocked: false, gym: 8, isEvolution: false },
+        { name: 'Lippoutou', pokedexNum: 124, unlocked: false, gym: 8, isEvolution: false },
+        { name: 'Élektek', pokedexNum: 125, unlocked: false, gym: 8, isEvolution: false },
+        { name: 'Magmar', pokedexNum: 126, unlocked: false, gym: 8, isEvolution: false },
+        { name: 'Scarabrute', pokedexNum: 127, unlocked: false, gym: 8, isEvolution: false },
+        { name: 'Tauros', pokedexNum: 128, unlocked: false, gym: 8, isEvolution: false },
+        
+        // === ARÈNE 9 - Pokémon légendaires mineurs ===
+        { name: 'Magicarpe', pokedexNum: 129, unlocked: false, gym: 9, isEvolution: false },
+        { name: 'Léviator', pokedexNum: 130, unlocked: false, gym: 9, isEvolution: true },
+        { name: 'Lokhlass', pokedexNum: 131, unlocked: false, gym: 9, isEvolution: false },
+        { name: 'Métamorph', pokedexNum: 132, unlocked: false, gym: 9, isEvolution: false },
+        { name: 'Évoli', pokedexNum: 133, unlocked: false, gym: 9, isEvolution: false },
+        { name: 'Aquali', pokedexNum: 134, unlocked: false, gym: 9, isEvolution: true },
+        { name: 'Voltali', pokedexNum: 135, unlocked: false, gym: 9, isEvolution: true },
+        { name: 'Pyroli', pokedexNum: 136, unlocked: false, gym: 9, isEvolution: true },
+        { name: 'Porygon', pokedexNum: 137, unlocked: false, gym: 9, isEvolution: false },
+        
+        // === ARÈNE 10 (LIGUE) - Pokémon légendaires ===
+        { name: 'Ptéra', pokedexNum: 142, unlocked: false, gym: 10, isEvolution: false },
+        { name: 'Ronflex', pokedexNum: 143, unlocked: false, gym: 10, isEvolution: false },
+        { name: 'Artikodin', pokedexNum: 144, unlocked: false, gym: 10, isEvolution: false },
+        { name: 'Électhor', pokedexNum: 145, unlocked: false, gym: 10, isEvolution: true },
+        { name: 'Sulfura', pokedexNum: 146, unlocked: false, gym: 10, isEvolution: true },
+        { name: 'Minidraco', pokedexNum: 147, unlocked: false, gym: 10, isEvolution: false },
+        { name: 'Draco', pokedexNum: 148, unlocked: false, gym: 10, isEvolution: true },
+        { name: 'Dracolosse', pokedexNum: 149, unlocked: false, gym: 10, isEvolution: true },
+        { name: 'Mewtwo', pokedexNum: 150, unlocked: false, gym: 10, isEvolution: true },
+        { name: 'Mew', pokedexNum: 151, unlocked: false, gym: 10, isEvolution: true },
+        
+        // === Évolutions finales bonus (gagnables dans plusieurs arènes) ===
+        { name: 'Papilusion', pokedexNum: 12, unlocked: false, gym: 3, isEvolution: true },
+        { name: 'Dardargnan', pokedexNum: 15, unlocked: false, gym: 3, isEvolution: true },
+        { name: 'Roucarnage', pokedexNum: 18, unlocked: false, gym: 4, isEvolution: true },
+        { name: 'Florizarre', pokedexNum: 3, unlocked: false, gym: 7, isEvolution: true },
+        { name: 'Dracaufeu', pokedexNum: 6, unlocked: false, gym: 8, isEvolution: true },
+        { name: 'Tortank', pokedexNum: 9, unlocked: false, gym: 8, isEvolution: true },
+        { name: 'Rafflesia', pokedexNum: 45, unlocked: false, gym: 6, isEvolution: true },
+        { name: 'Alakazam', pokedexNum: 65, unlocked: false, gym: 7, isEvolution: true },
+        { name: 'Mackogneur', pokedexNum: 68, unlocked: false, gym: 8, isEvolution: true },
+        { name: 'Ectoplasma', pokedexNum: 94, unlocked: false, gym: 9, isEvolution: true },
+        { name: 'Amonita', pokedexNum: 138, unlocked: false, gym: 8, isEvolution: false },
+        { name: 'Amonistar', pokedexNum: 139, unlocked: false, gym: 9, isEvolution: true },
+        { name: 'Kabuto', pokedexNum: 140, unlocked: false, gym: 8, isEvolution: false },
+        { name: 'Kabutops', pokedexNum: 141, unlocked: false, gym: 9, isEvolution: true },
     ],
     
     // Fonction pour obtenir la position du sprite
@@ -119,6 +238,29 @@ const app = {
     setupSpeech() {
         if ('speechSynthesis' in window) {
             this.speech = window.speechSynthesis;
+            
+            const loadVoices = () => {
+                const voices = this.speech.getVoices();
+                // Chercher "Google français" ou une voix Google FR
+                this.selectedVoice = voices.find(v => v.name.includes('Google') && v.name.includes('Français'));
+                
+                if (!this.selectedVoice) {
+                     this.selectedVoice = voices.find(v => v.name.includes('Google') && v.lang.startsWith('fr'));
+                }
+                
+                // Fallback sur n'importe quelle voix FR
+                if (!this.selectedVoice) {
+                    this.selectedVoice = voices.find(v => v.lang.startsWith('fr'));
+                }
+                
+                // console.log("Voix chargée:", this.selectedVoice ? this.selectedVoice.name : "Défaut");
+            };
+            
+            loadVoices();
+            
+            if (this.speech.onvoiceschanged !== undefined) {
+                this.speech.onvoiceschanged = loadVoices;
+            }
         }
     },
     
@@ -127,6 +269,13 @@ const app = {
             this.speech.cancel();
             
             let spokenText = text;
+            
+            // Corrections générales (toujours appliquées)
+            // Corriger "VI" (chiffre romain 6) en "vie" pour la syllabe
+            spokenText = spokenText.replace(/\bVI\b/g, 'vie').replace(/\bVi\b/g, 'vie');
+            
+            // Corriger ponctuation pour fluidité
+            spokenText = spokenText.replace(' !', '.');
             
             // Appliquer les corrections phonétiques seulement pour les lettres/sons isolés
             if (applyPhonetics) {
@@ -161,8 +310,23 @@ const app = {
             
             const utterance = new SpeechSynthesisUtterance(spokenText);
             utterance.lang = 'fr-FR';
-            utterance.rate = 0.8;
-            utterance.pitch = 1.2;
+            
+            if (this.selectedVoice) {
+                utterance.voice = this.selectedVoice;
+                
+                // Paramètres optimisés pour la voix Google
+                if (this.selectedVoice.name.includes('Google')) {
+                    utterance.rate = 1.05;
+                    utterance.pitch = 1;
+                } else {
+                    // Paramètres par défaut pour les autres voix (souvent plus robotiques)
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1.1;
+                }
+            } else {
+                utterance.rate = 0.9;
+            }
+            
             this.speech.speak(utterance);
         }
     },
@@ -176,7 +340,13 @@ const app = {
         
         // Forcer le changement d'écran de manière synchrone
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('map-screen').classList.add('active');
+        const mapScreen = document.getElementById('map-screen');
+        mapScreen.classList.add('active');
+        
+        // Scroller vers le haut de la page pour voir les arènes
+        mapScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
         
         // Mettre à jour l'interface
         this.updateUI();
@@ -218,18 +388,21 @@ const app = {
     showGymIntro() {
         const gym = this.gyms[this.currentGym];
         
-        // Trouver le Pokémon à gagner
+        // Trouver tous les Pokémon disponibles pour cette arène
+        const availablePokemon = this.pokedex.filter(p => 
+            p.gym === this.currentGym && 
+            p.isEvolution === this.expertMode && 
+            !p.unlocked
+        );
+        
+        // Choisir un Pokémon aléatoire à montrer
         let pokemon = null;
-        if (this.expertMode) {
-            pokemon = this.pokedex.find(p => p.gym === this.currentGym && p.isEvolution && !p.unlocked);
-        } else {
-            pokemon = this.pokedex.find(p => p.gym === this.currentGym && !p.isEvolution && !p.unlocked);
+        if (availablePokemon.length > 0) {
+            pokemon = availablePokemon[Math.floor(Math.random() * availablePokemon.length)];
         }
         
-        if (!pokemon) {
-            // Si pas de nouveau Pokémon, trouver un Pokémon bonus
-            pokemon = this.pokedex.find(p => p.gym === null && !p.unlocked);
-        }
+        // Stocker le Pokémon récompense pour qu'il soit le même à la fin
+        this.currentRewardPokemon = pokemon;
         
         this.showScreen('gym-intro-screen');
         
@@ -243,15 +416,19 @@ const app = {
             const posY = pos.y * 2;
             spriteContainer.innerHTML = `<div class="reward-pokemon-sprite" style="background-position: ${posX}px ${posY}px;"></div>`;
             
+            const remainingCount = availablePokemon.length;
             const message = this.expertMode 
-                ? `Un ${pokemon.name} sauvage apparaît ! Réponds correctement aux questions pour le faire évoluer !`
-                : `Un ${pokemon.name} sauvage apparaît ! Réponds correctement aux questions pour l'attraper !`;
+                ? `Un ${pokemon.name} sauvage apparaît ! (${remainingCount} évolutions restantes)`
+                : `Un ${pokemon.name} sauvage apparaît ! (${remainingCount} Pokémon restants)`;
             
             document.getElementById('intro-message').textContent = message;
-            this.speak(message, false);
+            this.speak(`Un ${pokemon.name} sauvage apparaît !`, false);
         } else {
             spriteContainer.innerHTML = '<div style="font-size: 5rem;">🏆</div>';
-            document.getElementById('intro-message').textContent = 'Prêt à relever le défi ?';
+            const message = this.expertMode 
+                ? 'Tu as toutes les évolutions de cette arène ! Rejoue pour le plaisir !'
+                : 'Tu as tous les Pokémon de cette arène ! Essaie le mode Expert !';
+            document.getElementById('intro-message').textContent = message;
             this.speak('Prêt à relever le défi ?', false);
         }
     },
@@ -260,6 +437,8 @@ const app = {
         const gym = this.gyms[this.currentGym];
         const mode = this.expertMode ? 'mode expert' : 'mode normal';
         this.speak(`C'est parti pour ${gym.name} en ${mode}!`, false);
+        
+        this.combo = 0; // Initialiser le combo
         
         this.showScreen('exercise-screen');
         this.updateExerciseUI();
@@ -289,11 +468,12 @@ const app = {
     toggleUnlockAll() {
         const checkbox = document.getElementById('unlock-all-gyms');
         if (checkbox.checked) {
-            // Débloquer toutes les arènes
+            // Débloquer toutes les arènes ET le mode expert
             Object.keys(this.gyms).forEach(id => {
                 this.gyms[id].unlocked = true;
+                this.gyms[id].badge = true; // Donne le badge normal pour débloquer le mode expert
             });
-            this.speak('Toutes les arènes sont débloquées !', false);
+            this.speak('Toutes les arènes et modes expert sont débloqués !', false);
         } else {
             // Remettre les verrous selon la progression
             Object.keys(this.gyms).forEach(id => {
@@ -415,6 +595,10 @@ const app = {
             exercise = this.createSyllableExercise(gym);
         } else if (gym.type === 'words') {
             exercise = this.createWordExercise(gym);
+        } else if (gym.type === 'read-words') {
+            exercise = this.createReadWordExercise(gym);
+        } else if (gym.type === 'sentence-choice') {
+            exercise = this.createSentenceChoiceExercise(gym);
         } else if (gym.type === 'sentences') {
             exercise = this.createSentenceExercise(gym);
         }
@@ -438,8 +622,16 @@ const app = {
         const correct = availableItems[Math.floor(Math.random() * availableItems.length)];
         this.usedItems.push(correct);
         
-        const allOptions = 'abcdefghijklmnopqrstuvwxyz'.split('');
-        const wrong = allOptions.filter(l => !items.includes(l)).sort(() => Math.random() - 0.5).slice(0, 3);
+        let wrong;
+        if (gym.type === 'sounds' || gym.type === 'complex-sounds') {
+            // Pour les sons, prendre les autres sons de l'arène comme mauvaises réponses
+            wrong = items.filter(s => s !== correct).sort(() => Math.random() - 0.5).slice(0, 3);
+        } else {
+            // Pour les lettres, prendre d'autres lettres de l'alphabet
+            const allOptions = 'abcdefghijklmnopqrstuvwxyz'.split('');
+            wrong = allOptions.filter(l => !items.includes(l)).sort(() => Math.random() - 0.5).slice(0, 3);
+        }
+        
         const options = [correct, ...wrong].sort(() => Math.random() - 0.5);
         
         const pronunciation = gym.pronunciation ? gym.pronunciation[correct] || correct : correct;
@@ -450,7 +642,8 @@ const app = {
             ? `Écoute bien et clique sur ${article} bon${article === 'le' ? '' : 'ne'} ${typeText}!`
             : `Clique sur ${article} ${typeText} "${correct.toUpperCase()}"`;
         
-        const audioInstruction = `Trouve ${article} ${typeText} ${pronunciation}`;
+        // Ajouter une virgule avant le son pour éviter les liaisons ("le son, on" au lieu de "le son non")
+        const audioInstruction = `Trouve ${article} ${typeText}, ${pronunciation}`;
         this.currentAudioInstruction = audioInstruction;
         this.currentAudioPhonetics = true; // Appliquer phonétique pour lettres/sons
         this.speak(audioInstruction, true); // true = appliquer corrections phonétiques
@@ -510,6 +703,61 @@ const app = {
         return { type: 'word', correct, options, instruction, showCorrect: !this.expertMode };
     },
     
+    // Arène 8 : Lecture de mots longs (comme les phrases mais avec des mots)
+    createReadWordExercise(gym) {
+        const items = gym.words;
+        let availableItems = items.filter(item => !this.usedItems.includes(item));
+        
+        if (availableItems.length === 0) {
+            availableItems = items;
+        }
+        
+        const correct = availableItems[Math.floor(Math.random() * availableItems.length)];
+        this.usedItems.push(correct);
+        
+        const instruction = 'Lis ce mot à voix haute!';
+        this.currentAudioInstruction = `Lis ce mot. ${correct}`;
+        this.currentAudioPhonetics = false;
+        
+        // En mode expert, ne pas lire le mot
+        if (this.expertMode) {
+            this.speak('Lis ce mot', false);
+        } else {
+            this.speak('Lis ce mot', false);
+            setTimeout(() => this.speak(correct, false), 1000);
+        }
+        
+        return { type: 'read-word', correct, instruction };
+    },
+    
+    // Arène 9 : Trouver la phrase parmi des options (comme syllabes/mots)
+    createSentenceChoiceExercise(gym) {
+        const items = gym.sentences;
+        let availableItems = items.filter(item => !this.usedItems.includes(item));
+        
+        if (availableItems.length === 0) {
+            availableItems = items;
+        }
+        
+        const correct = availableItems[Math.floor(Math.random() * availableItems.length)];
+        this.usedItems.push(correct);
+        
+        const wrong = items.filter(s => s !== correct).sort(() => Math.random() - 0.5).slice(0, 3);
+        const options = [correct, ...wrong].sort(() => Math.random() - 0.5);
+        
+        const instruction = this.expertMode 
+            ? 'Écoute bien et clique sur la bonne phrase!'
+            : `Clique sur la phrase "${correct}"`;
+        
+        // Ajouter une virgule pour éviter les liaisons
+        const audioInstruction = `Trouve la phrase, ${correct}`;
+        this.currentAudioInstruction = audioInstruction;
+        this.currentAudioPhonetics = false;
+        this.speak(audioInstruction, false);
+        
+        return { type: 'sentence-choice', correct, options, instruction, showCorrect: !this.expertMode };
+    },
+    
     createSentenceExercise(gym) {
         const items = gym.sentences;
         let availableItems = items.filter(item => !this.usedItems.includes(item));
@@ -524,8 +772,14 @@ const app = {
         const instruction = 'Lis la phrase à voix haute!';
         this.currentAudioInstruction = `Lis cette phrase. ${correct}`;
         this.currentAudioPhonetics = false; // Pas de phonétique pour les phrases
-        this.speak('Lis cette phrase', false); // false = pas de corrections phonétiques
-        setTimeout(() => this.speak(correct, false), 1000); // false = pas de corrections phonétiques
+        
+        // En mode expert, ne pas lire la phrase (trop facile sinon)
+        if (this.expertMode) {
+            this.speak('Lis cette phrase', false);
+        } else {
+            this.speak('Lis cette phrase', false);
+            setTimeout(() => this.speak(correct, false), 1000);
+        }
         
         return { type: 'sentence', correct, instruction };
     },
@@ -539,14 +793,38 @@ const app = {
         feedback.textContent = '';
         feedback.className = '';
         
-        if (exercise.type === 'sentence') {
+        if (exercise.type === 'sentence' || exercise.type === 'read-word') {
+            // Lecture à voix haute (phrase ou mot long)
+            const isWord = exercise.type === 'read-word';
+            const escapedCorrect = exercise.correct.replace(/'/g, "\\'");
             content.innerHTML = `
-                <div style="font-size: 3rem; font-weight: bold; margin: 30px 0; line-height: 1.5;">
+                <div style="font-size: ${isWord ? '4rem' : '3rem'}; font-weight: bold; margin: 30px 0; line-height: 1.5;">
                     ${exercise.correct}
                 </div>
-                <button class="btn-primary" onclick="app.checkAnswer('${exercise.correct}', '${exercise.correct}')">
+                <button class="btn-primary" onclick="app.checkAnswer('${escapedCorrect}', '${escapedCorrect}')">
                     J'ai lu! 📖
                 </button>
+            `;
+        } else if (exercise.type === 'sentence-choice') {
+            // Choix parmi des phrases
+            let displayHTML = '';
+            if (exercise.showCorrect) {
+                displayHTML = `<div style="font-size: 1.8rem; font-weight: bold; margin: 20px 0; color: #FF0000; line-height: 1.4;">${exercise.correct}</div>`;
+            }
+            
+            content.innerHTML = `
+                ${displayHTML}
+                <div style="display: flex; flex-direction: column; gap: 15px; max-width: 600px; margin: 30px auto;">
+                    ${exercise.options.map(opt => {
+                        const escapedOpt = opt.replace(/'/g, "\\'");
+                        const escapedCorrect = exercise.correct.replace(/'/g, "\\'");
+                        return `
+                            <button class="option-btn" style="font-size: 1.5rem; padding: 20px; text-align: left;" onclick="app.checkAnswer('${escapedOpt}', '${escapedCorrect}')">
+                                ${opt}
+                            </button>
+                        `;
+                    }).join('')}
+                </div>
             `;
         } else {
             let displayHTML = '';
@@ -588,17 +866,42 @@ const app = {
         buttons.forEach(btn => btn.style.pointerEvents = 'none');
         
         if (userAnswer === correctAnswer) {
-            feedback.textContent = '🎉 Super! Bravo!';
+            this.score++;
+            this.combo = (this.combo || 0) + 1;
+            
+            // Choix du mot de félicitation
+            const praises = ['Génial', 'Super', 'Bravo', 'Impressionnant', 'Top', 'Magnifique', 'Excellent', 'Champion', 'Incroyable', 'Fantastique'];
+            const randomPraise = praises[Math.floor(Math.random() * praises.length)];
+            
+            let message = `🎉 ${randomPraise}`;
+            let speakMessage = randomPraise;
+            
+            // 20% de chance d'ajouter le prénom
+            if (Math.random() < 0.2 && this.player.name && this.player.name !== 'Dresseur') {
+                message += ` ${this.player.name}`;
+                speakMessage += ` ${this.player.name}`;
+            }
+            
+            message += ' !';
+            
+            // Bonus de combo
+            if (this.combo >= 3) {
+                message += ` 🔥 Série de ${this.combo} !`;
+                // On de dit pas "Série de X" à l'oral c'est moins naturel, on garde juste la félicitation
+            }
+            
+            this.speak(speakMessage, false);
+
+            feedback.textContent = message;
             feedback.className = 'correct';
             buttons.forEach(btn => {
                 if (btn.textContent.trim().toLowerCase() === correctAnswer.toLowerCase()) {
                     btn.classList.add('correct');
                 }
             });
-            this.speak('Bravo! Très bien!', false);
-            this.score++;
             setTimeout(() => this.nextExercise(), 1500);
         } else {
+            this.combo = 0; // Combo brisé
             this.hearts--;
             document.getElementById('hearts').textContent = '❤️'.repeat(this.hearts);
             feedback.textContent = '❌ Essaie encore!';
@@ -647,28 +950,31 @@ const app = {
         
         let newPokemon = null;
         
-        if (this.expertMode) {
-            const evolutionIndex = this.pokedex.findIndex(p => 
-                p.gym === this.currentGym && p.isEvolution && !p.unlocked
-            );
-            if (evolutionIndex !== -1) {
-                this.pokedex[evolutionIndex].unlocked = true;
-                newPokemon = this.pokedex[evolutionIndex];
+        if (this.currentRewardPokemon) {
+            // Le débloquer
+            const pokedexIndex = this.pokedex.findIndex(p => p.pokedexNum === this.currentRewardPokemon.pokedexNum);
+            if (pokedexIndex !== -1 && !this.pokedex[pokedexIndex].unlocked) {
+                this.pokedex[pokedexIndex].unlocked = true;
+                newPokemon = this.pokedex[pokedexIndex];
             }
-        } else {
-            const baseIndex = this.pokedex.findIndex(p => 
-                p.gym === this.currentGym && !p.isEvolution && !p.unlocked
+        }
+        // Fallback si pas de Pokémon stocké (ex: rechargement page pendant partie)
+        else {
+             // Trouver tous les Pokémon non débloqués de cette arène
+            const availablePokemon = this.pokedex.filter(p => 
+                p.gym === this.currentGym && 
+                p.isEvolution === this.expertMode && 
+                !p.unlocked
             );
-            if (baseIndex !== -1) {
-                this.pokedex[baseIndex].unlocked = true;
-                newPokemon = this.pokedex[baseIndex];
-            } else {
-                const noGymIndex = this.pokedex.findIndex(p => 
-                    p.gym === null && !p.unlocked
-                );
-                if (noGymIndex !== -1) {
-                    this.pokedex[noGymIndex].unlocked = true;
-                    newPokemon = this.pokedex[noGymIndex];
+            
+            if (availablePokemon.length > 0) {
+                const randomIndex = Math.floor(Math.random() * availablePokemon.length);
+                const chosenPokemon = availablePokemon[randomIndex];
+                
+                const pokedexIndex = this.pokedex.findIndex(p => p.pokedexNum === chosenPokemon.pokedexNum);
+                if (pokedexIndex !== -1) {
+                    this.pokedex[pokedexIndex].unlocked = true;
+                    newPokemon = this.pokedex[pokedexIndex];
                 }
             }
         }
@@ -739,20 +1045,30 @@ const app = {
     
     renderPokedex() {
         const grid = document.getElementById('pokedex-grid');
-        grid.innerHTML = this.pokedex.map(pokemon => {
+        
+        // Trier par numéro Pokédex
+        const sortedPokedex = [...this.pokedex].sort((a, b) => a.pokedexNum - b.pokedexNum);
+        
+        grid.innerHTML = sortedPokedex.map(pokemon => {
+            const pos = this.getSpritePosition(pokemon.pokedexNum);
+            const gymName = pokemon.gym ? this.gyms[pokemon.gym]?.name || `Arène ${pokemon.gym}` : 'Bonus';
+            const modeText = pokemon.isEvolution ? '⚡Expert' : '🎮Normal';
+            
             if (pokemon.unlocked) {
-                const pos = this.getSpritePosition(pokemon.pokedexNum);
                 return `
                     <div class="pokemon-card">
                         <div class="pokemon-sprite" style="background-position: ${pos.x}px ${pos.y}px;"></div>
                         <div class="pokemon-name">${pokemon.name}</div>
+                        <div style="font-size: 0.7rem; color: #666;">#${pokemon.pokedexNum.toString().padStart(3, '0')}</div>
                     </div>
                 `;
             } else {
                 return `
                     <div class="pokemon-card locked">
-                        <div style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 4rem; margin: 0 auto 10px;">❓</div>
-                        <div class="pokemon-name">???</div>
+                        <div style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 5px; opacity: 0.3;">❓</div>
+                        <div class="pokemon-name" style="font-size: 0.9rem;">#${pokemon.pokedexNum.toString().padStart(3, '0')}</div>
+                        <div style="font-size: 0.65rem; color: #888; margin-top: 3px;">${gymName}</div>
+                        <div style="font-size: 0.6rem; color: ${pokemon.isEvolution ? '#9333ea' : '#3B4CCA'};">${modeText}</div>
                     </div>
                 `;
             }
@@ -769,16 +1085,51 @@ const app = {
     },
     
     loadProgress() {
+
         const saved = localStorage.getItem('pokemonLecture');
         if (saved) {
             try {
                 const data = JSON.parse(saved);
                 this.player = data.player || this.player;
-                this.gyms = data.gyms || this.gyms;
-                this.pokedex = data.pokedex || this.pokedex;
+                
+                // Fusionner les arènes sauvegardées avec les nouvelles (pour garder les nouvelles arènes)
+                if (data.gyms) {
+                    Object.keys(data.gyms).forEach(id => {
+                        if (this.gyms[id]) {
+                            // Garder la progression mais utiliser la structure actuelle
+                            this.gyms[id].stars = data.gyms[id].stars || 0;
+                            this.gyms[id].badge = data.gyms[id].badge || false;
+                            this.gyms[id].expertStars = data.gyms[id].expertStars || 0;
+                            this.gyms[id].expertBadge = data.gyms[id].expertBadge || false;
+                            this.gyms[id].unlocked = data.gyms[id].unlocked || this.gyms[id].unlocked;
+                        }
+                    });
+                }
+                
+                // Fusionner les Pokémon sauvegardés avec les nouveaux
+                if (data.pokedex) {
+                    data.pokedex.forEach(savedPokemon => {
+                        const currentPokemon = this.pokedex.find(p => p.pokedexNum === savedPokemon.pokedexNum);
+                        if (currentPokemon) {
+                            currentPokemon.unlocked = savedPokemon.unlocked || false;
+                        }
+                    });
+                }
             } catch (e) {
                 console.error('Erreur chargement:', e);
             }
+        }
+    },
+    
+    resetProgress() {
+        const password = prompt("Pour tout réinitialiser, tapez le code secret (1234) :");
+        if (password === '1234') {
+            if (confirm("Attention ! Toute la progression, les badges et les Pokémon seront perdus. Êtes-vous sûr ?")) {
+                localStorage.removeItem('pokemonLecture');
+                location.reload();
+            }
+        } else if (password !== null) {
+            alert("Code incorrect !");
         }
     }
 };

@@ -490,16 +490,7 @@
             margin: 20px 0;
         }
 
-        .reward-pokemon-sprite {
-            width: 120px;
-            height: 120px;
-            background-image: url('https://www.spriters-resource.com/media/assets/62/64885.png?updated=1755473498');
-            background-size: 4800px auto;
-            margin: 20px auto;
-            image-rendering: pixelated;
-            transform: scale(3);
-            animation: rewardAppear 1s ease;
-        }
+
 
         .reward-text {
             font-size: 1.5rem;
@@ -559,9 +550,9 @@
                 <div style="font-size: 0.9rem;">⭐ Niveau <span id="player-level">1</span></div>
             </div>
             <div>
-                <div>🏆 <span id="total-badges">0</span>/8</div>
+                <div>🏆 <span id="total-badges">0</span>/10</div>
                 <div>📚 <span id="total-stars">0</span> ⭐</div>
-                <div>📕 <span id="pokemon-count">0</span>/19</div>
+                <div>📕 <span id="pokemon-count">0</span>/151</div>
             </div>
             <button onclick="app.toggleSettings()" style="background: #f0f0f0; border: 2px solid #3B4CCA; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 1.2rem;">
                 ⚙️
@@ -576,6 +567,12 @@
                 <span>🔓 Débloquer toutes les arènes (mode test)</span>
             </label>
             <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">Utile pour tester ou si l'enfant veut sauter des niveaux</p>
+            
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+            
+            <button onclick="app.resetProgress()" style="background: #FF0000; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 1rem; width: 100%;">
+                🗑️ Tout réinitialiser (Zone Danger)
+            </button>
         </div>
 
         <div class="map-container">
@@ -585,7 +582,7 @@
 
         <div style="text-align: center;">
             <button class="btn-primary" onclick="app.showPokedex()" style="max-width: 400px;">
-                📕 Mon Pokédex (<span id="pokemon-count-2">0</span>/19)
+                📕 Mon Pokédex (<span id="pokemon-count-2">0</span>/151)
             </button>
         </div>
     </div>
