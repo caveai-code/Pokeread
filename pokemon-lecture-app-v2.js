@@ -1165,6 +1165,83 @@ const app = {
         }
     },
     
+    exportProgress() {
+        try {
+            const data = {
+                player: this.player,
+                gyms: this.gyms,
+                pokedex: this.pokedex,
+                exportDate: new Date().toISOString()
+            };
+            
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/octet-stream' }); // application/json parfois ouvert dans le navigateur mobile
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            // Nom du fichier avec la date
+            const dateStr = new Date().toISOString().split('T')[0];
+            a.download = `sauvegarde-pokemon-lecture-${dateStr}.json`;
+            
+            document.body.appendChild(a);
+            a.click();
+            
+            // Délai pour mobile
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 1000);
+        } catch (e) {
+            console.error(e);
+            alert("Erreur lors de l'export: " + e.message);
+        }
+    },
+    
+    triggerImport() {
+        // Simple click sur l'input file caché
+        const input = document.getElementById('import-file');
+        if (input) {
+            input.click();
+        } else {
+            alert("Erreur: Impossible de trouver le champ d'import.");
+        }
+    },
+    
+    importProgress(input) {
+        const file = input.files[0];
+        if (!file) return;
+        
+        if (!confirm("Attention ! Importer une sauvegarde va remplacer votre progression actuelle. \nVoulez-vous continuer ?")) {
+            input.value = ''; // Reset input
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const json = e.target.result;
+                const data = JSON.parse(json);
+                
+                // Vérification basique de la structure
+                if (!data.player || !data.gyms || !data.pokedex) {
+                    throw new Error("Format de fichier invalide");
+                }
+                
+                // Sauvegarder les nouvelles données
+                localStorage.setItem('pokemonLecture', JSON.stringify(data));
+                
+                alert("Sauvegarde importée avec succès ! La page va se recharger.");
+                location.reload();
+            } catch (error) {
+                console.error("Erreur d'importation:", error);
+                alert("Erreur lors de l'importation du fichier. Vérifiez qu'il s'agit bien d'une sauvegarde valide.");
+            }
+        };
+        reader.readAsText(file);
+    },
+
     resetProgress() {
         const password = prompt("Pour tout réinitialiser, tapez le code secret (1234) :");
         if (password === '1234') {

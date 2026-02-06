@@ -568,6 +568,17 @@
             </label>
             <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">Utile pour tester ou si l'enfant veut sauter des niveaux</p>
             
+            <div style="display: flex; gap: 10px; margin: 15px 0;">
+                <button onclick="app.exportProgress()" style="flex: 1; background: #3B4CCA; color: white; border: none; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 1rem; touch-action: number;">
+                    📤 Exporter
+                </button>
+                <button onclick="app.triggerImport()" style="flex: 1; background: #FF8C00; color: white; border: none; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 1rem; touch-action: manipulation;">
+                    📥 Importer
+                </button>
+                <!-- Hack mobile : display:none empêche parfois le click() de fonctionner -->
+                <input type="file" id="import-file" accept=".json" style="position: absolute; opacity: 0; width: 1px; height: 1px; overflow: hidden; z-index: -1;" onchange="app.importProgress(this)">
+            </div>
+            
             <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
             
             <button onclick="app.resetProgress()" style="background: #FF0000; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 1rem; width: 100%;">
