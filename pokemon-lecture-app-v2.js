@@ -681,7 +681,9 @@ const app = {
     },
     
     startGymExercises() {
-        const gym = this.gyms[this.currentGym];
+        const gym = this.currentGame === 'counting'
+            ? this.countingGyms[this.currentGym]
+            : this.gyms[this.currentGym];
         const mode = this.expertMode ? 'mode expert' : 'mode normal';
         this.speak(`C'est parti pour ${gym.name} en ${mode}!`, false);
         
