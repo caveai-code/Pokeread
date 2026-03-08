@@ -1276,10 +1276,10 @@ const app = {
         const correct = total - subtract;
         const emoji = emojis[Math.floor(Math.random() * emojis.length)];
         const options = this.generateDistractors(correct, total - 1, 0);
-        this.currentAudioInstruction = `Il y a ${total} objets, on en retire ${subtract}. Combien en reste-t-il ?`;
+        this.currentAudioInstruction = `Combien font ${total} moins ${subtract} ?`;
         this.currentAudioPhonetics = false;
-        this.speak('Combien en reste-t-il ?', false);
-        return { type: 'visual-subtraction', total, subtract, emoji, correct: String(correct), options, instruction: 'Combien en reste-t-il ?' };
+        this.speak(this.currentAudioInstruction, false);
+        return { type: 'visual-subtraction', total, subtract, emoji, correct: String(correct), options, instruction: `Combien font ${total} − ${subtract} ?` };
     },
 
     // Arène c5 — Soustractions Numériques
@@ -1317,7 +1317,7 @@ const app = {
         const emoji = emojis[Math.floor(Math.random() * emojis.length)];
         this.currentAudioInstruction = `Combien font ${a} fois ${b} ?`;
         this.currentAudioPhonetics = false;
-        this.speak(`Combien y a-t-il d'objets dans le tableau ?`, false);
+        this.speak(`Combien font ${a} fois ${b} ?`, false);
         return { type: 'matrix-multiplication', a, b, emoji, correct: String(correct), options, instruction: `${a} × ${b} = ?` };
     },
 
